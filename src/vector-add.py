@@ -112,10 +112,19 @@ import pandas
 def main():
     mlflow.start_run()
 
-    torch.set_printoptions(threshold=10000)
+    # Options for running this example
+    # 1. Uncomment either of these benchmarks 
     with pandas.option_context('display.max_rows', None, 'display.max_columns', None):
         benchmark.run(show_plots=False, print_data=True)
         #benchmark_blocksize.run(show_plots=False, print_data=True)
+
+    # 2. Uncomment this: for just calling the kernel; no benchmarking
+    #x = torch.rand(size, device='cuda', dtype=torch.float32)
+    #y = torch.rand(size, device='cuda', dtype=torch.float32)
+    #triton_res = add_triton(x, y, 2**10)
+    #torch_res = x + y
+    #assert torch.allclose(triton_res, torch_res)
+    #print("PASS")
 
     mlflow.end_run()
 
