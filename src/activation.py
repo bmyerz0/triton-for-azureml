@@ -108,7 +108,7 @@ def main():
     # Options for running this example
     # 1. Uncomment either of these benchmarks 
     with pandas.option_context('display.max_rows', None, 'display.max_columns', None):
-        benchmark.run(show_plots=True, print_data=True)
+        benchmark.run(show_plots=False, print_data=True)
         #benchmark_blocksize.run(show_plots=False, print_data=True)
 
     # 2. Uncomment this: for just calling the kernel; no benchmarking
