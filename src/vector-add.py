@@ -26,17 +26,6 @@ def vector_add_kernel(
     # Write x + y back to DRAM.
     tl.store(output_ptr + offsets, output, mask=mask)
 
-
-# do 8: just a small block size
-# do 2048 (8KB)
-# do 8096 (32 KB)
-#  Shared memory size / SM = 96KB
-# do 2**16 (128KB)
-#  Register file size / SM = 256KB
-# do 2**18 (512KB)
-#  6144 KB (L2 cache size)
-# do 2*21 (8000KB)
-
 def swish_torch(x: torch.Tensor):
     return x * torch.sigmoid(x)
 
