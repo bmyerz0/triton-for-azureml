@@ -20,7 +20,7 @@ Use these instructions if you want to get something working as quickly as possib
     workspace_name="YOUR-WORKSPACE-NAME",
 ```
 8. Create a Compute using the Set your kernel instructions from this tutorial. You just need to create an low-end CPU type that can run your notebook code. The actual Pytorch/Triton code will get run on your GPU cluster.
-9. Complete the instructions at [Create a Triton Environment](README.md#create-a-triton-environment) below
+9. Complete the instructions at [Create a Triton Environment](README.md#create-a-triton-environment) below; then return here for the next step
 10. Where the script says `environment`, replace the value with the name and version of the Environment you created
 
 ```
