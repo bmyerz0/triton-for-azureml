@@ -1,7 +1,7 @@
 # Triton on AzureML Studio
 
 ## Pre-requisites
-- access to an AzureML Studio workspace
+- access to an AzureML Studio workspace, subscription
 - compute cluster of Nvidia GPUs
 
 ## Quickstart 
