@@ -7,7 +7,7 @@
 ## Quickstart 
 Use these instructions if you want to get something working as quickly as possible. There are comments in the code but not much is explained here, so if you want more understanding of AzureML, you might look at the tutorials in the Resources section below.
 
-1. Go to Notebooks
+1. Go to AzureML Studio; go to Notebooks
 2. Create a folder called `triton-examples/`
 3. Add the files/folders from this repository
 5. Open triton_gpu_submit.ipynb
