@@ -1,5 +1,7 @@
 # Triton on AzureML Studio
 
+This project will help you get started using the [Triton programming language](https://triton-lang.org/main/index.html) on GPU resources in AzureML.
+
 ## Pre-requisites
 - access to an AzureML Studio workspace, subscription
 - compute cluster of Nvidia GPU resources
