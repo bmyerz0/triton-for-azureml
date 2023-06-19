@@ -144,13 +144,18 @@ import pandas
 def main():
     mlflow.start_run()
 
+     # Options for running this example
+    # 1. Uncomment either of these benchmarks 
     with pandas.option_context('display.max_rows', None, 'display.max_columns', None):
         benchmark.run(show_plots=False, print_data=True)
-    # annoyingly Triton's benchmark just writes to a file or shows the matplotlib, it does not give option of returning the matplotlib plot
-    # WIP: my idea is to allow Triton bench run to save the png then read it back into numpy image and do mlflow.log_image
-    #benchmark.run(show_plots=False, print_data=True, save_path=".")
-    # name of file should be ./softmax-performance.png (see plot_name above)
-    #mlflow.log_image()
+        #benchmark_blocksize.run(show_plots=False, print_data=True)
+
+    # 2. Uncomment this: for just calling the kernel; no benchmarking
+    #x = torch.rand(4096, 1024, device='cuda', dtype=torch.float32)
+    #triton_res = softmax_triton(x)
+    #torch_res = softmax_torch(x)
+    #assert torch.allclose(triton_res, torch_res)
+    #print("PASS")
     
     mlflow.end_run()
 
