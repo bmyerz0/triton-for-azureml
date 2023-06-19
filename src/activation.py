@@ -24,17 +24,6 @@ def swish_kernel(
     # Write x + y back to DRAM.
     tl.store(output_ptr + offsets, output, mask=mask)
 
-
-# do 8: just a small block size
-# do 2048 (8KB)
-# do 8096 (32 KB)
-#  Shared memory size / SM = 96KB
-# do 2**16 (128KB)
-#  Register file size / SM = 256KB
-# do 2**18 (512KB)
-#  6144 KB (L2 cache size)
-# do 2*21 (8000KB)
-
 def swish_torch(x: torch.Tensor):
     return x * torch.sigmoid(x)
 
@@ -46,21 +35,14 @@ def swish_torch_builtin(x: torch.Tensor):
     return torch.nn.SiLU()(x)
 
 def swish_triton(x: torch.Tensor, block):
-    # We need to preallocate the output.
     output = torch.empty_like(x)
     assert x.is_cuda and output.is_cuda
     n_elements = output.numel()
-    # The SPMD launch grid denotes the number of kernel instances that run in parallel.
-    # It is analogous to CUDA launch grids. It can be either Tuple[int], or Callable(metaparameters) -> Tuple[int].
-    # In this case, we use a 1D grid where the size is the number of blocks:
+
     grid = lambda meta: (triton.cdiv(n_elements, meta['BLOCK_SIZE']),)
-    # NOTE:
-    #  - Each torch.tensor object is implicitly converted into a pointer to its first element.
-    #  - `triton.jit`'ed functions can be indexed with a launch grid to obtain a callable GPU kernel.
-    #  - Don't forget to pass meta-parameters as keywords arguments.
+
     swish_kernel[grid](x, output, n_elements, BLOCK_SIZE=block) 
-    # We return a handle to z but, since `torch.cuda.synchronize()` hasn't been called, the kernel is still
-    # running asynchronously at this point.
+
     return output
 
 @triton.testing.perf_report(
@@ -123,11 +105,18 @@ import pandas
 def main():
     mlflow.start_run()
 
-    torch.set_printoptions(threshold=10000)
-    #benchmark.run(show_plots=True, print_data=True)
-
+    # Options for running this example
+    # 1. Uncomment either of these benchmarks 
     with pandas.option_context('display.max_rows', None, 'display.max_columns', None):
-        benchmark_blocksize.run(show_plots=False, print_data=True)
+        benchmark.run(show_plots=True, print_data=True)
+        #benchmark_blocksize.run(show_plots=False, print_data=True)
+
+    # 2. Uncomment this: for just calling the kernel; no benchmarking
+    #x = torch.rand(size, device='cuda', dtype=torch.float32)
+    #triton_res = swish_triton(x, 2**10)
+    #torch_res = swish_torch(x)
+    #assert torch.allclose(triton_res, torch_res)
+    #print("PASS")
 
     mlflow.end_run()
 
