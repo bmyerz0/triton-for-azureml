@@ -2,7 +2,7 @@
 
 ## Pre-requisites
 - access to an AzureML Studio workspace, subscription
-- compute cluster of Nvidia GPUs
+- compute cluster of Nvidia GPU resources
 
 ## Quickstart 
 Use these instructions if you want to get something working as quickly as possible. There are comments in the code but not much is explained here, so if you want more understanding of AzureML, you might look at the tutorials in the Resources section below.
