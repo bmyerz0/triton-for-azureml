@@ -9,11 +9,17 @@ Use these instructions if you want to get something working as quickly as possib
 
 1. Go to Notebooks
 2. Create a folder called `triton-examples/`
-3. Add the files/folders from TODO
+3. Add the files/folders from this repository
 5. Open triton_gpu_submit.ipynb
-6. Create a Compute using the Set your kernel instructions from this tutorial. You just need to create an low-end CPU type that can run your notebook code. The actual Pytorch/Triton code will get run on your GPU cluster.
-7. Do the instructions at Create a Triton Environment below
-8. Where the script says `environment`, replace the value with the name and version of the Environment you created
+6. Fill in your subscription information
+```
+    subscription_id="YOUR-SUBSCRIPTION-ID",
+    resource_group_name="YOUR-RESOURCE-GROUP-NAME",
+    workspace_name="YOUR-WORKSPACE-NAME",
+```
+8. Create a Compute using the Set your kernel instructions from this tutorial. You just need to create an low-end CPU type that can run your notebook code. The actual Pytorch/Triton code will get run on your GPU cluster.
+9. Do the instructions at Create a Triton Environment below
+10. Where the script says `environment`, replace the value with the name and version of the Environment you created
 
 ```
 environment="acpt-triton-2@latest", # what environment the compute cluster node will be running
